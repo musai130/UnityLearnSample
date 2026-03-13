@@ -4,9 +4,13 @@ using UnityEngine;
 [HelpURL("https://docs.google.com/document/d/1rdTEVSrCcYOjqTJcFCHj46RvnbdJhmQUb3gHMDhVftI/edit?usp=sharing")]
 public class ScalerModule : MonoBehaviour
 {
-    private Vector3 targetScale = new Vector3(2,2,2);
+    [Header("Настройки масштабирования")]
 
-    private float changeSpeed;
+    [Tooltip("Целевой масштаб объекта")]
+    [SerializeField] private Vector3 targetScale = new Vector3(2, 2, 2);
+
+    [Tooltip("Скорость изменения масштаба")]
+    [SerializeField, Min(0.1f)] private float changeSpeed = 2f;
 
     private Vector3 defaultScale;
     private Transform myTransform;
@@ -35,7 +39,7 @@ public class ScalerModule : MonoBehaviour
 
     private IEnumerator ScaleCoroutine(Vector3 target)
     {
-        Vector3 start = myTransform.lossyScale;
+        Vector3 start = myTransform.localScale;
         float t = 0;
         while(t < 1)
         {
