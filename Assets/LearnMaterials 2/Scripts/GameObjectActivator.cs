@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Задаёт указанным объектам значение activeSalfe, равное state
+/// Задаёт указанным объектам значение activeSelf, равное state
 /// </summary>
 [HelpURL("https://docs.google.com/document/d/1GP4_m0MzOF8L5t5pZxLChu3V_TFIq1czi1oJQ2X5kpU/edit?usp=sharing")]
 public class GameObjectActivator : MonoBehaviour
 {
-    private List<StateContainer> targets;
-    private bool debug;
+    [Tooltip("Список объектов и их целевых состояний")]
+    [SerializeField] private List<StateContainer> targets;
+
+    [Tooltip("Показывать Gizmo-линии к целевым объектам в редакторе")]
+    [SerializeField] private bool debug;
 
     private void Awake()
     {
+        if (targets == null) return;
         foreach (var item in targets)
         {
             item.defaultValue = item.targetGO.activeSelf;
@@ -23,6 +27,7 @@ public class GameObjectActivator : MonoBehaviour
     }
     public void ReturnToDefaultState()
     {
+        if (targets == null) return;
         foreach (var item in targets)
         {
             item.targetState = item.defaultValue;
@@ -32,6 +37,7 @@ public class GameObjectActivator : MonoBehaviour
 
     private void SetStateForAll()
     {
+        if (targets == null) return;
         for (int i = 0; i < targets.Count; i++)
         {
             if (targets[i] != null)
@@ -49,7 +55,7 @@ public class GameObjectActivator : MonoBehaviour
     #region Материал ещё не изучен
     private void OnDrawGizmos()
     {
-        if(debug)
+        if (debug && targets != null)
         {
             Gizmos.color = Color.gray;
             Gizmos.DrawSphere(transform.position, 0.3f);
