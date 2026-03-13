@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
-public class TransparentModule : MonoBehaviour
+public class TransparentModule : SampleScript
 {
     [Header("Настройки прозрачности")]
 
@@ -49,6 +49,11 @@ public class TransparentModule : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(ChangeTransparencyCoroutine(new Color(mat.color.r, mat.color.g, mat.color.b, target)));
         useAlphaFrom = !useAlphaFrom;
+    }
+
+    public override void Use()
+    {
+        ActivateModule();
     }
 
     private IEnumerator ChangeTransparencyCoroutine(Color target)

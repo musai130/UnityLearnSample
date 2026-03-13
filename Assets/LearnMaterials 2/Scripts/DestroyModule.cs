@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 [HelpURL("https://docs.google.com/document/d/1RMamVxE-yUpSfsPD_dEa4-Ak1qu6NTo83qY1O4XLxUY/edit?usp=sharing")]
-public class DestroyModule : MonoBehaviour
+public class DestroyModule : SampleScript
 {
     [Header("Настройки уничтожения")]
 
@@ -37,6 +37,11 @@ public class DestroyModule : MonoBehaviour
         }
 
         StartCoroutine(DestroyRandomChildObjectCoroutine());
+    }
+
+    public override void Use()
+    {
+        ActivateModule();
     }
 
     private IEnumerator DestroyRandomChildObjectCoroutine()

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [HelpURL("https://docs.google.com/document/d/1rdTEVSrCcYOjqTJcFCHj46RvnbdJhmQUb3gHMDhVftI/edit?usp=sharing")]
-public class ScalerModule : MonoBehaviour
+public class ScalerModule : SampleScript
 {
     [Header("Настройки масштабирования")]
 
@@ -31,9 +31,20 @@ public class ScalerModule : MonoBehaviour
         toDefault = !toDefault;
     }
 
+    public override void Use()
+    {
+        ActivateModule();
+    }
+
     public void ReturnToDefaultState()
     {
         toDefault = true;
+        ActivateModule();
+    }
+
+    [ContextMenu("Активировать масштабирование")]
+    public void TestActivate()
+    {
         ActivateModule();
     }
 
