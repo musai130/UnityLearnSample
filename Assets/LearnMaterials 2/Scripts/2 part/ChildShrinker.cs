@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Плавно сжимает дочерние объекты до нулевого размера и удаляет их.
+/// Если дочерних объектов нет, сжимает и удаляет сам target.
+/// </summary>
 public class ChildShrinker : SampleScript
 {
     [Tooltip("Transform, чьи дочерние объекты будут удалены")]
@@ -10,22 +14,17 @@ public class ChildShrinker : SampleScript
     [Tooltip("Длительность анимации сжатия в секундах")]
     [SerializeField, Min(0.01f)] private float shrinkDuration = 0.5f;
 
+    [ContextMenu("Активировать сжатие детей")]
     public override void Use()
     {
         if (target == null)
         {
-            Debug.LogWarning("ChildShrinker: target не назначен.");
+            Debug.LogWarning($"{nameof(ChildShrinker)}: target не назначен.");
             return;
         }
 
         StopAllCoroutines();
         StartCoroutine(ShrinkAndDestroyChildren());
-    }
-
-    [ContextMenu("Активировать сжатие детей")]
-    public void ActivateModule()
-    {
-        Use();
     }
 
     private IEnumerator ShrinkAndDestroyChildren()
@@ -39,7 +38,6 @@ public class ChildShrinker : SampleScript
             startScales.Add(child.localScale);
         }
 
-        // Если у target нет детей, работаем с самим target
         if (children.Count == 0)
         {
             children.Add(target);
@@ -52,7 +50,9 @@ public class ChildShrinker : SampleScript
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / shrinkDuration);
-            float smoothT = 1f - (1f - t) * (1f - t); // Ease-in для плавного замедления в конце
+            
+            // Ease-Out: быстрый старт, плавное замедление в конце
+            float smoothT = 1f - (1f - t) * (1f - t);
 
             for (int i = 0; i < children.Count; i++)
             {

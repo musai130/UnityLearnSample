@@ -584,8 +584,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e681336468a9ce6eb9beefb2a78f224d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  mode: 0
   speed: 1
-  targetPosition: {x: 0, y: 5, z: 0}
+  targetPosition: {x: 0, y: 1.2, z: 0}
+  debugLog: 0
 --- !u!4 &911694409
 Transform:
   m_ObjectHideFlags: 0
@@ -594,7 +597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911694407}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 580288052}
@@ -637,7 +640,7 @@ MonoBehaviour:
   - {fileID: 911694408}
   - {fileID: 1663045673}
   - {fileID: 1009105259}
-  testUseAll: 0
+  autoStartOnPlay: 1
 --- !u!4 &932001999
 Transform:
   m_ObjectHideFlags: 0
@@ -689,8 +692,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdddc5ef0c97991cda5ff06f268d0741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  mode: 0
   speed: 0.5
-  targetAngles: {x: 0, y: 90, z: 90}
+  targetAngles: {x: 45, y: 90, z: 90}
+  debugLog: 0
 --- !u!4 &1009105260
 Transform:
   m_ObjectHideFlags: 0
@@ -926,11 +932,7 @@ MonoBehaviour:
   rotationDuration: 9
   rotationAxis: {x: 0, y: 1, z: 0}
   rotationAngle: 90
-  rotateParentOnly: 1
-  isRotating: 0
-  currentRotationTime: 0
-  startRotation: {x: 0, y: 0, z: 0, w: 0}
-  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  attachCopiesToParent: 0
 --- !u!4 &1495807564
 Transform:
   m_ObjectHideFlags: 0

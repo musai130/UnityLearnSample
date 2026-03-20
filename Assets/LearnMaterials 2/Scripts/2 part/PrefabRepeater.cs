@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Создаёт заданное количество копий префаба вдоль указанного направления.
+/// </summary>
 public class PrefabRepeater : SampleScript
 {
     [Tooltip("Префаб для создания копий")]
@@ -17,16 +20,12 @@ public class PrefabRepeater : SampleScript
     [Tooltip("Родитель для созданных объектов (пусто = корень сцены)")]
     [SerializeField] private Transform parent;
 
-    private void Start()
-    {
-        Use();
-    }
-
+    [ContextMenu("Создать копии")]
     public override void Use()
     {
         if (prefab == null)
         {
-            Debug.LogWarning("PrefabRepeater: префаб не назначен.");
+            Debug.LogWarning($"{nameof(PrefabRepeater)} на {name}: префаб не назначен.");
             return;
         }
 
@@ -35,7 +34,7 @@ public class PrefabRepeater : SampleScript
 
         for (int i = 0; i < count; i++)
         {
-            GameObject instance = Object.Instantiate(prefab, pos, transform.rotation, parent);
+            Instantiate(prefab, pos, transform.rotation, parent);
             pos += dir * step;
         }
     }

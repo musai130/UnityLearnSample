@@ -1,13 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Контроллер для управления всеми SampleScript на сцене.
+/// Позволяет вызывать Use() у всех скриптов одновременно.
+/// </summary>
 public class SampleScriptsController : MonoBehaviour
 {
     [Header("Ссылки на скрипты")]
+    [Tooltip("Список всех управляемых SampleScript")]
     [SerializeField] private List<SampleScript> sampleScripts = new List<SampleScript>();
-    
-    [Header("Тестирование")]
-    [SerializeField] private bool testUseAll;
+
+    [Header("Настройки")]
+    [Tooltip("Автоматически запускать UseAll() при старте сцены")]
+    [SerializeField] private bool autoStartOnPlay = true;
 
     private void Awake()
     {
@@ -19,29 +25,17 @@ public class SampleScriptsController : MonoBehaviour
 
     private void Start()
     {
-        UseAll();
-    }
-
-    private void OnValidate()
-    {
-        if (testUseAll)
+        if (autoStartOnPlay)
         {
-            testUseAll = false;
-            if (Application.isPlaying)
-            {
-                UseAll();
-            }
-            else
-            {
-                Debug.LogWarning("Тестирование доступно только в Play Mode!");
-            }
+            UseAll();
         }
     }
 
+    [ContextMenu("Запустить все скрипты")]
     public void UseAll()
     {
         Debug.Log($"=== UseAll() запущен. Скриптов в списке: {sampleScripts.Count} ===");
-        
+
         for (int i = 0; i < sampleScripts.Count; i++)
         {
             if (sampleScripts[i] != null)
@@ -51,22 +45,21 @@ public class SampleScriptsController : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"Элемент {i} равен null!");
+                Debug.LogError($"{nameof(SampleScriptsController)}: Элемент {i} равен null!");
             }
         }
-        
-        Debug.Log("=== UseAll() завершен ===");
+
+        Debug.Log("=== UseAll() завершён ===");
     }
-    
+
     [ContextMenu("Найти все SampleScript")]
     public void FindAllSampleScripts()
     {
         sampleScripts.Clear();
-        
+
         SampleScript[] foundScripts = GetComponentsInChildren<SampleScript>(true);
         sampleScripts.AddRange(foundScripts);
-        
+
         Debug.Log($"Найдено {sampleScripts.Count} SampleScript");
     }
-    
 }
