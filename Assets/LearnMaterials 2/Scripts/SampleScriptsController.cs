@@ -16,7 +16,12 @@ public class SampleScriptsController : MonoBehaviour
             FindAllSampleScripts();
         }
     }
-    
+
+    private void Start()
+    {
+        UseAll();
+    }
+
     private void OnValidate()
     {
         if (testUseAll)

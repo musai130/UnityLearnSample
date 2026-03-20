@@ -21,7 +21,7 @@ public class TransparentModule : SampleScript
     private Material mat;
     private bool useAlphaFrom;
 
-    private void Start()
+    private void Awake()
     {
         var renderer = GetComponent<Renderer>();
         mat = renderer.material;
@@ -39,8 +39,6 @@ public class TransparentModule : SampleScript
             mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
             mat.renderQueue = 3000;
         }
-
-        ActivateModule();
     }
 
     public void ActivateModule()
