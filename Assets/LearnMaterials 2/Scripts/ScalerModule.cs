@@ -1,10 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// Плавно изменяет масштаб объекта между текущим и целевым значением.
-/// Переключает направление при каждом вызове.
-/// </summary>
 [HelpURL("https://docs.google.com/document/d/1rdTEVSrCcYOjqTJcFCHj46RvnbdJhmQUb3gHMDhVftI/edit?usp=sharing")]
 public class ScalerModule : SampleScript
 {
@@ -29,6 +25,10 @@ public class ScalerModule : SampleScript
     [ContextMenu("Активировать масштабирование")]
     public override void Use()
     {
+        if (!gameObject.activeInHierarchy)
+            gameObject.SetActive(true);
+        enabled = true;
+
         Vector3 target = toDefault ? defaultScale : targetScale;
         StopAllCoroutines();
         StartCoroutine(ScaleCoroutine(target));
